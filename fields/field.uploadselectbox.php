@@ -54,8 +54,6 @@
 			Field::displaySettingsPanel($wrapper, $errors);
 			
 			$div = new XMLElement('div', NULL, array('class' => 'group'));
-						
-			$this->appendShowColumnCheckbox($wrapper);
 
 			## Destination Folder
 			$ignore = array(
