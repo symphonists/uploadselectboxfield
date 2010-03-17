@@ -107,13 +107,13 @@
 		
 		function prepareTableValue($data, XMLElement $link=NULL){
 			if(!$file = $data['file']) return NULL;
-					
+			
 			if($link){
 				$link->setValue(basename($file));
 				return $link->generate();
 			}			
 			else{
-				$link = Widget::Anchor(basename($file), URL . '/workspace' . $file);
+				$link = Widget::Anchor(basename($file), URL . $this->get('destination') . '/'. $file);
 				return $link->generate();
 			}
 			
