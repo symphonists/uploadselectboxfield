@@ -1,11 +1,11 @@
 # Upload Select Box Field
 
-* Version: 1.0  
-* Author: Nick Dunn  
+* Version: 1.1
+* Author: Nick Dunn, Brendan Abbott
 * Requirements: Symphony 2.0.6+
 
 
-## Installation 
+## Installation
 
 1. Upload the 'uploadselectboxfield' folder in this archive to your Symphony 'extensions' folder.
 2. Enable it by selecting the "Field: Upload Select Box", choose Enable from the with-selected menu, then click Apply.
