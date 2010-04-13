@@ -41,13 +41,16 @@
 
 			if (!is_array($data) or empty($data)) return;
 
-			$item = new XMLElement($this->get('element_name'));
-
-			if (!is_array($data['file'])) {
+			if (!is_array($data['file']) && !is_null($data['file'])) {
 				$data = array(
 					'file' => array($data['file'])
 				);
 			}
+			else {
+				return;
+			}
+
+			$item = new XMLElement($this->get('element_name'));
 
 			$path = DOCROOT . $this->get('destination');
 
