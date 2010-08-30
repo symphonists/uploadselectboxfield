@@ -4,8 +4,8 @@
 
 		public function about(){
 			return array('name' => 'Field: Uploaded File Select Box',
-						 'version' => '1.1',
-						 'release-date' => '2010-04-13',
+						 'version' => '1.1.1',
+						 'release-date' => '2010-08-30',
 						 'author' => array('name' => 'Nick Dunn, Brendan Abbott',
 										   'website' => 'http://nick-dunn.co.uk')
 				 		);

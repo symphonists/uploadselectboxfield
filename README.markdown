@@ -1,6 +1,6 @@
 # Upload Select Box Field
 
-* Version: 1.1
+* Version: 1.1.1
 * Author: Nick Dunn, Brendan Abbott
 * Requirements: Symphony 2.0.6+
 
