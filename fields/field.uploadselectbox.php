@@ -119,7 +119,9 @@
 
 			$options = array();
 			$states = General::listStructure(DOCROOT . $this->get('destination'), null, false, 'asc', DOCROOT);
-
+			
+			if (is_null($states['filelist']) || empty($status['filelist'])) $states['filelist'] = array();
+			
 			foreach($states['filelist'] as $handle => $v){
 				$options[] = array(General::sanitize($v), in_array($v, $data['file']), $v);
 			}
