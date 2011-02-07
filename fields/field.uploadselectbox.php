@@ -41,13 +41,11 @@
 
 			if (!is_array($data) or empty($data)) return;
 
-			if (!is_array($data['file']) && !is_null($data['file'])) {
+			if (!is_array($data['file'])) {
+				if($data['file'] == NULL) return;
 				$data = array(
 					'file' => array($data['file'])
 				);
-			}
-			else {
-				return;
 			}
 
 			$item = new XMLElement($this->get('element_name'));
@@ -120,7 +118,7 @@
 			$options = array();
 			$states = General::listStructure(DOCROOT . $this->get('destination'), null, false, 'asc', DOCROOT);
 			
-			if (is_null($states['filelist']) || empty($status['filelist'])) $states['filelist'] = array();
+			if (is_null($states['filelist']) || empty($states['filelist'])) $states['filelist'] = array();
 			
 			foreach($states['filelist'] as $handle => $v){
 				$options[] = array(General::sanitize($v), in_array($v, $data['file']), $v);
