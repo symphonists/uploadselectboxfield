@@ -1,7 +1,7 @@
 # Upload Select Box Field
 
-* Version: 1.1.2
-* Build Date: 2011-02-07
+* Version: 1.1.3
+* Build Date: 2011-06-24
 * Author: Nick Dunn, Brendan Abbott
 * Requirements: Symphony 2.0.6+
 
