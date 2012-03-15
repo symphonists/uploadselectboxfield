@@ -6,8 +6,8 @@
 
 	Class FieldUploadselectbox extends Field {
 
-		function __construct(&$parent){
-			parent::__construct($parent);
+		function __construct(){
+			parent::__construct();
 			$this->_name = 'Upload Select Box';
 			$this->set('show_column', 'no');
 		}
@@ -25,41 +25,29 @@
 			return true;
 		}
 
-		public function canImport(){
-			return false;
-		}
-
 		function canPrePopulate(){
 			return true;
 		}
 
-		function isSortable(){
-			return false;
-		}
-
 		public function appendFormattedElement(&$wrapper, $data, $encode = false) {
-
-			if (!is_array($data) or empty($data)) return;
+			if (!is_array($data) || empty($data)) return;
 
 			if (!is_array($data['file'])) {
-				if($data['file'] == NULL) return;
-				$data = array(
-					'file' => array($data['file'])
-				);
+				if(!$data['file']) return;
+				$data = array('file' => array($data['file']));
 			}
 
 			$item = new XMLElement($this->get('element_name'));
-
-			$path = DOCROOT . $this->get('destination');
+			$path = DOCROOT;
 
 			$item->setAttributeArray(array(
-			 	'path' => str_replace(WORKSPACE,'', $path)
+			 	'path' => str_replace(WORKSPACE, '', $path)
 			));
 
 			foreach($data['file'] as $index => $file) {
 				$item->appendChild(new XMLElement(
 					'item', General::sanitize($file), array(
-						'size' => General::formatFilesize(filesize($path . '/' . $file)),
+						'size' => General::formatFilesize(filesize($path . $file)),
 					)
 				));
 			}
@@ -73,7 +61,6 @@
 
 			$div = new XMLElement('div', NULL, array('class' => 'group'));
 
-			## Destination Folder
 			$ignore = array(
 				'/workspace/events',
 				'/workspace/data-sources',
@@ -101,7 +88,6 @@
 
 			$this->appendRequiredCheckbox($wrapper);
 
-			## Allow selection of multiple items
 			$label = Widget::Label();
 			$input = Widget::Input('fields['.$this->get('sortorder').'][allow_multiple_selection]', 'yes', 'checkbox');
 			if($this->get('allow_multiple_selection') == 'yes') $input->setAttribute('checked', 'checked');
@@ -155,7 +141,7 @@
 			return implode(", ", $custom_link);
 		}
 
-		public function buildDSRetrivalSQL($data, &$joins, &$where, $andOperation = false) {
+		public function buildDSRetrievalSQL($data, &$joins, &$where, $andOperation = false) {
 			$field_id = $this->get('id');
 
 			if (preg_match('/^mimetype:/', $data[0])) {
@@ -219,45 +205,36 @@
 		}
 
 		function commit(){
-
 			if(!parent::commit()) return false;
 
 			$id = $this->get('id');
-
 			if($id === false) return false;
 
 			$fields = array();
-
 			$fields['field_id'] = $id;
 			$fields['destination'] = $this->get('destination');
 			$fields['allow_multiple_selection'] = ($this->get('allow_multiple_selection') ? $this->get('allow_multiple_selection') : 'no');
 
-			$this->_engine->Database->query("DELETE FROM `tbl_fields_".$this->handle()."` WHERE `field_id` = '$id' LIMIT 1");
-			return $this->_engine->Database->insert($fields, 'tbl_fields_' . $this->handle());
+			Symphony::Database()->query("DELETE FROM `tbl_fields_".$this->handle()."` WHERE `field_id` = '$id' LIMIT 1");
+			return Symphony::Database()->insert($fields, 'tbl_fields_' . $this->handle());
 
 		}
 
 		public function processRawFieldData($data, &$status, $simulate=false, $entry_id=NULL){
-
 			$status = self::__OK__;
 
 			if(!is_array($data)) return array('file' => General::sanitize($data));
-
 			if(empty($data)) return NULL;
 
 			$result = array('file' => array());
-
 			foreach($data as $file) {
 				$result['file'][] = $file;
 			}
-
 			return $result;
 		}
 
 		function createTable(){
-
-			return $this->_engine->Database->query(
-
+			return Symphony::Database()->query(
 				"CREATE TABLE IF NOT EXISTS `tbl_entries_data_" . $this->get('id') . "` (
 				  `id` int(11) unsigned NOT NULL auto_increment,
 				  `entry_id` int(11) unsigned NOT NULL,
@@ -265,7 +242,6 @@
 				  PRIMARY KEY  (`id`),
 				  KEY `entry_id` (`entry_id`)
 				);"
-
 			);
 		}
 

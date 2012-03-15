@@ -2,15 +2,6 @@
 
 	Class extension_Uploadselectboxfield extends Extension{
 
-		public function about(){
-			return array('name' => 'Field: Uploaded File Select Box',
-						 'version' => '1.1.3',
-						 'release-date' => '2011-06-24',
-						 'author' => array('name' => 'Nick Dunn, Brendan Abbott',
-										   'website' => 'http://nick-dunn.co.uk')
-				 		);
-		}
-
 		public function uninstall(){
 			Symphony::Database()->query("DROP TABLE `tbl_fields_uploadselectbox`");
 		}
