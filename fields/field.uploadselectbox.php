@@ -29,7 +29,7 @@
 			return true;
 		}
 
-		public function appendFormattedElement(&$wrapper, $data, $encode = false) {
+		public function appendFormattedElement(XMLElement &$wrapper, $data, $encode = false, $mode = NULL, $entry_id = NULL) {
 			if (!is_array($data) || empty($data)) return;
 
 			if (!is_array($data['file'])) {
@@ -55,7 +55,7 @@
 			$wrapper->appendChild($item);
 		}
 
-		function displaySettingsPanel(&$wrapper, $errors=NULL){
+		function displaySettingsPanel(XMLElement &$wrapper, $errors = NULL){
 
 			Field::displaySettingsPanel($wrapper, $errors);
 
@@ -98,7 +98,7 @@
 
 		}
 
-		function displayPublishPanel(&$wrapper, $data=NULL, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL){
+		function displayPublishPanel(XMLElement &$wrapper, $data = NULL, $flagWithError = NULL, $fieldnamePrefix = NULL, $fieldnamePostfix = NULL, $entry_id = NULL){
 			if(!is_array($data['file'])) $data['file'] = array($data['file']);
 
 			$options = array();
@@ -120,7 +120,7 @@
 			else $wrapper->appendChild($label);
 		}
 
-		function prepareTableValue($data, XMLElement $link=NULL){
+		function prepareTableValue($data, ?XMLElement $link = NULL, $entry_id = NULL){
 			$value = $data['file'];
 
 			if(!is_array($value)) $value = array($value);
@@ -220,7 +220,7 @@
 
 		}
 
-		public function processRawFieldData($data, &$status, $simulate=false, $entry_id=NULL){
+		public function processRawFieldData($data, &$status, &$message = NULL, $simulate = false, $entry_id = NULL){
 			$status = self::__OK__;
 
 			if(!is_array($data)) return array('file' => General::sanitize($data));
