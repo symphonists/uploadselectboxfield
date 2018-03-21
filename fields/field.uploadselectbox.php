@@ -103,6 +103,7 @@
 
 			$options = array();
 			$states = General::listStructure(DOCROOT . $this->get('destination'), null, false, 'asc', DOCROOT);
+			array_unshift($states['filelist'], "");
 			
 			if (is_null($states['filelist']) || empty($states['filelist'])) $states['filelist'] = array();
 			
