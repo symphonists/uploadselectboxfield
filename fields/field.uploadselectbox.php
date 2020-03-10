@@ -126,7 +126,7 @@
 
 			if(!is_array($value)) $value = array($value);
 
-			$custom_link = "";
+			$custom_link[] = "";
 
 			foreach($value as $file) {
 				if($link){
