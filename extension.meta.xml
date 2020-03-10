@@ -20,8 +20,11 @@
 		<item type="image" url="http://symphonyextensions.com/nickdunn/uploadselectboxfield/media/uploadselectboxfield.png">Uploaded Files Select Box: Displays a select box list of files from a chosen folder</item>
 	</media>
 	<releases>
-		<release version="1.4.0" date="2018-03-22" min="2.3.x">
-		  - Add empty `option` to be able to NOT select a file
+		<release version="1.3.2" date="2020-03-09" min="2.3.x">
+		  - Fix `Fatal error: [] operator not supported for strings in …`
+		</release>
+		<release version="1.3.1" date="2018-03-21" min="2.3.x">
+		  - Add empty `option` to NOT select a file
 		</release>
 		<release version="1.3.0" date="2018-03-21" min="2.3.x">
 		  - PHP7 Updates
