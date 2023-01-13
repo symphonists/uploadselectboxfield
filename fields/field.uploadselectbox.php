@@ -29,7 +29,7 @@
 			return true;
 		}
 
-		public function appendFormattedElement(XMLElement &$wrapper, $data, $encode = false, $mode = NULL, $entry_id = NULL) {
+		public function appendFormattedElement(XMLElement &$wrapper, $data, $encode = false, $mode = null, $entry_id = null) {
 			if (!is_array($data) || empty($data)) return;
 
 			if (!is_array($data['file'])) {
@@ -55,11 +55,11 @@
 			$wrapper->appendChild($item);
 		}
 
-		function displaySettingsPanel(XMLElement &$wrapper, $errors = NULL){
+		function displaySettingsPanel(XMLElement &$wrapper, $errors = null){
 
 			Field::displaySettingsPanel($wrapper, $errors);
 
-			$div = new XMLElement('div', NULL, array('class' => 'group'));
+			$div = new XMLElement('div', null, array('class' => 'group'));
 
 			$ignore = array(
 				'/workspace/events',
@@ -68,7 +68,7 @@
 				'/workspace/pages',
 				'/workspace/utilities'
 			);
-			$directories = General::listDirStructure(WORKSPACE, NULL, 'asc', DOCROOT, $ignore);
+			$directories = General::listDirStructure(WORKSPACE, null, 'asc', DOCROOT, $ignore);
 
 			$label = Widget::Label(__('Destination Directory'));
 
@@ -98,7 +98,8 @@
 
 		}
 
-		function displayPublishPanel(XMLElement &$wrapper, $data = NULL, $flagWithError = NULL, $fieldnamePrefix = NULL, $fieldnamePostfix = NULL, $entry_id = NULL){
+		function displayPublishPanel(XMLElement &$wrapper, $data = null, $flagWithError = null, $fieldnamePrefix = null, $fieldnamePostfix = null, $entry_id = null){
+		  $data['file'] = $data['file'] ?? null; 
 			if(!is_array($data['file'])) $data['file'] = array($data['file']);
 
 			$options = array();
@@ -115,13 +116,13 @@
 			if($this->get('allow_multiple_selection') == 'yes') $fieldname .= '[]';
 
 			$label = Widget::Label($this->get('label'));
-			$label->appendChild(Widget::Select($fieldname, $options, ($this->get('allow_multiple_selection') == 'yes' ? array('multiple' => 'multiple') : NULL)));
+			$label->appendChild(Widget::Select($fieldname, $options, ($this->get('allow_multiple_selection') == 'yes' ? array('multiple' => 'multiple') : null)));
 
-			if($flagWithError != NULL) $wrapper->appendChild(Widget::wrapFormElementWithError($label, $flagWithError));
+			if($flagWithError != null) $wrapper->appendChild(Widget::wrapFormElementWithError($label, $flagWithError));
 			else $wrapper->appendChild($label);
 		}
 
-		function prepareTableValue($data, ?XMLElement $link = NULL, $entry_id = NULL){
+		function prepareTableValue($data, ?XMLElement $link = null, $entry_id = null){
 			$value = $data['file'];
 
 			if(!is_array($value)) $value = array($value);
@@ -221,11 +222,11 @@
 
 		}
 
-		public function processRawFieldData($data, &$status, &$message = NULL, $simulate = false, $entry_id = NULL){
+		public function processRawFieldData($data, &$status, &$message = null, $simulate = false, $entry_id = null){
 			$status = self::__OK__;
 
 			if(!is_array($data)) return array('file' => General::sanitize($data));
-			if(empty($data)) return NULL;
+			if(empty($data)) return null;
 
 			$result = array('file' => array());
 			foreach($data as $file) {
@@ -237,9 +238,9 @@
 		function createTable(){
 			return Symphony::Database()->query(
 				"CREATE TABLE IF NOT EXISTS `tbl_entries_data_" . $this->get('id') . "` (
-				  `id` int(11) unsigned NOT NULL auto_increment,
-				  `entry_id` int(11) unsigned NOT NULL,
-				  `file` varchar(255) default NULL,
+				  `id` int(11) unsigned NOT null auto_increment,
+				  `entry_id` int(11) unsigned NOT null,
+				  `file` varchar(255) default null,
 				  PRIMARY KEY  (`id`),
 				  KEY `entry_id` (`entry_id`)
 				);"
